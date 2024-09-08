@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recognition</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c71a2b98b5.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style for copy icon */
+        .copy-icon {
+          width:22px;
+          height:22px;
+            cursor: pointer;
+            padding-bottom: 4px;
+            color: black;
+        }
+        .line {
+          background-color: #5a7184;
+      
+      }
+      
+      .card-description {
+          color: #5a7184;
+          font-size: 20px;
+          font-family: "Roboto";
+      }
+      
+      .card-headings {
+          color: #5a7184;
+          font-size: 24px;
+          font-family: "Roboto";
+          font-weight: bold;
+      }
+      
+      .adress {
+          color: #5a7184;
+          font-size: 18px;
+          font-family: "Roboto";
+      }
+      
+      .icon-container {
+          background-color: #152c3e;
+          height: 50px;
+          width: 50px;
+          border-radius: 50px;
+          padding-top: 15px;
+          padding-bottom: 7px;
+      }
+      
+      .font-awesome-icons {
+          color: #5a7184;
+          font-size: 24px;
+      }
+      
+      .logo-image {
+          height: 60px;
+          width: 60px;
+      }
+      
+      .bg-container {
+          background-color: #0d2436;
+          margin:20px;
+          padding: 8px;
+          padding-top: 1px;
+          padding-bottom: 10px;
+          height: 900px;
+          border-radius: 20px;
+      }
+      .detail-button{
+        background-color: rgb(248, 179, 61);
+        border-width: 0px;
+        color:aliceblue;
+      }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="logo.png" class="logo" alt="cv tech"/></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.bonhappetee.com/food-search/search-page">Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://dietmenu.ccbp.tech">Dite Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.calculator.net/calorie-calculator.html">Calorie Caluculation</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  About
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">About Us</a></li>
+                  <li><a class="dropdown-item" href="#">About Project</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#ContactSection">Contact Us</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">
+        <h1>Upload an Image to Recognize the Food</h1>
+
+        <!-- Buttons to choose between Camera or File Upload -->
+         
+        <div class="mb-3">
+            <button id="useCameraBtn" class="btn btn-primary">Use Camera</button>
+            <button id="chooseFileBtn" class="btn btn-secondary">Choose File</button>
+        </div>
+
+        <!-- Camera input (hidden by default) -->
+        <div id="cameraContainer" class="mb-3" style="display: none;">
+            <video id="camera" autoplay></video>
+            <button id="takePhotoBtn" class="btn btn-success mt-2">Click</button>
+        </div>
+
+        <!-- File input -->
+        <input type="file" accept="image/*" id="imageUpload" style="display: none;">
+
+        <div id="displayContainer">
+            <img id="uploadedImage" src="" alt="Uploaded Food Image">
+            <div id="predictionResult"></div>
+
+            <!-- Text box for output and copy icon -->
+            <div class="input-group mt-3">
+                <input type="text" id="outputTextBox" class="form-control" readonly>
+                <span class="input-group-text">
+                  <img class="copy-icon" src="https://cdn-icons-png.flaticon.com/128/7073/7073707.png" onclick="copyToClipboard()" title="Copy to clipboard" alt="copy"/>
+              </span>
+              
+              
+            </div>
+            <p>just copy the text and click the below button and past the text in search bar</p>
+              <button class="detail-button"><a class="nav-link" href="https://www.bonhappetee.com/food-search/search-page">Details</a></button>
+        </div>
+    </div>
+
+    <div class="bg-container" id="ContactSection">
+      <div class="container">
+          <div class="row">
+
+              <div class="col-12 col-md-6 col-lg-3">
+                  <div class=" d-flex flex-column text-center ml-4">
+                      <img src="logo.png" class="logo-image mb-3 ml-4" />
+                      <div class="d-flex flex-row mb-4">
+                          <div class="icon-container mr-2">
+                              <i class="fa-brands fa-google font-awesome-icons"></i>
+                          </div>
+                          <div class="icon-container mr-2">
+                              <i class="fa-brands fa-twitter font-awesome-icons"></i>
+                          </div>
+                          <div class="icon-container mr-2">
+
+                            <i class="fa-brands fa-instagram font-awesome-icons"></i>
+                          </div>
+                          <div class="icon-container mr-2">
+                              <i class="fa-brands fa-linkedin font-awesome-icons"></i>
+                          </div>
+                      </div>
+                      <p class="adress">3-222, l.polavaram(v) , Ravulapalem(m), A.P</p>
+                  </div>
+              </div>
+
+              <div class="col-6 col-md-6 col-lg-3">
+                  <div>
+                      <h1 class="card-headings mb-3">Get to know us</h1>
+                      <p class="card-description">About us</p>
+                      <p class="card-description">Career</p>
+                      <p class="card-description">Press Releases</p>
+                      <p class="card-description">Gift a smile</p>
+                  </div>
+              </div>
+
+              <div class="col-6 col-md-6 col-lg-3">
+                  <div>
+                      <h1 class="card-headings mb-3">Contact with us</h1>
+                      <p><a class="card-description" href="https://www.instagram.com/jakkavarapunagesh?igsh=cjVsZ2tnaWtlZHA5">Instagram</a></p>
+                      <p><a class="card-description" href="https://www.linkedin.com/in/nagesh-jakkavarapu?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">linkedin</a></p>
+                      <p><a class="card-description" href="https://youtube.com/@nageshjakkavarapu2657?si=xRqxB3RYjlW8WRFg">Youtube</a></p>
+                  </div>
+              </div>
+
+              <div class="col-6 col-md-6 col-lg-3">
+                  <div>
+                      <h1 class="card-headings mb-3">Let Us Help You</h1>
+                      <p class="card-description">100% accureasy</p>
+                      <p class="card-description">Protection</p>
+                      <p class="card-description">good values</p>
+                      <p class="card-description">best ML Model</p>
+                      <p class="card-description">Help</p>
+                  </div>
+              </div>
+              <hr class="line">
+              <div class="d-flex flex-row justify-content-center ml-5 col-lg-3">
+                  <i class="fa-solid fa-circle-c font-awesome-icons"></i>
+                  <p class="card-description">by Nagesh. Created with Bootstrap</p>
+              </div>
+
+
+
+
+
+
+
+          </div>
+      </div>
+  </div>
+    
+    <!-- TensorFlow and Teachable Machine Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    
+    <script>
+        const modelURL = "./model.json";
+        const metadataURL = "./metadata.json";
+        let model;
+
+        // Load the model
+        async function loadModel() {
+            model = await tmImage.load(modelURL, metadataURL);
+            console.log("Model loaded successfully.");
+        }
+
+        // Get elements
+        const useCameraBtn = document.getElementById('useCameraBtn');
+        const chooseFileBtn = document.getElementById('chooseFileBtn');
+        const cameraContainer = document.getElementById('cameraContainer');
+        const imageUpload = document.getElementById('imageUpload');
+        const camera = document.getElementById('camera');
+        const takePhotoBtn = document.getElementById('takePhotoBtn');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const outputTextBox = document.getElementById('outputTextBox');
+
+        let stream;
+
+        // Determine camera facing mode based on device type
+        function getFacingMode() {
+            const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+            return isMobileDevice ? 'environment' : 'user';
+        }
+
+        // Event listener for "Use Camera" button
+        useCameraBtn.addEventListener('click', async () => {
+            cameraContainer.style.display = 'block';
+            imageUpload.style.display = 'none';
+
+            const facingMode = getFacingMode();
+
+            // Access the camera with the appropriate facing mode
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: facingMode }
+            });
+            camera.srcObject = stream;
+        });
+
+        // Event listener for "Choose File" button
+        chooseFileBtn.addEventListener('click', () => {
+            cameraContainer.style.display = 'none';
+            imageUpload.style.display = 'block';
+            imageUpload.click();
+        });
+
+        // Capture photo from the camera
+        takePhotoBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = camera.videoWidth;
+            canvas.height = camera.videoHeight;
+            canvas.getContext('2d').drawImage(camera, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+            uploadedImage.src = dataUrl;
+
+            // Stop the camera stream
+            stream.getTracks().forEach(track => track.stop());
+
+            // Auto upload to "Choose File" stage
+            predictImage(uploadedImage);
+        });
+
+        // Handle image upload and prediction
+        imageUpload.addEventListener('change', async function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                uploadedImage.src = URL.createObjectURL(file);
+                uploadedImage.onload = async function () {
+                    await predictImage(uploadedImage);
+                };
+            }
+        });
+
+        // Predict image function
+        async function predictImage(image) {
+            const prediction = await model.predict(image);
+            displayPrediction(prediction);
+        }
+
+        // Display prediction result and image
+        function displayPrediction(predictions) {
+            const predictionResult = document.getElementById('predictionResult');
+            predictionResult.innerHTML = '';
+
+            const bestPrediction = predictions.reduce((max, p) => p.probability > max.probability ? p : max, predictions[0]);
+            predictionResult.innerHTML = `<h2>Predicted Food Item: ${bestPrediction.className}</h2>`;
+            
+            // Display the prediction in the text box
+            outputTextBox.value = bestPrediction.className;
+        }
+
+        // Copy output text to clipboard
+        function copyToClipboard() {
+            outputTextBox.select();
+            document.execCommand("copy");
+        }
+
+        // Load model on page load
+        window.onload = loadModel;
+    </script>
+
+    <!-- Bootstrap JS and Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+</body>
+</html>
